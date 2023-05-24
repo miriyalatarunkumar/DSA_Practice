@@ -42,6 +42,7 @@ class Solution{
     int getMiddle(Node *head)
     {
         // Your code here
+        /*
         if(head == NULL) return -1;
         Node *p = head;
         int cnt =0;
@@ -54,6 +55,16 @@ class Solution{
             p=p->next;
         }
         return p->data;
+        */
+        if(head == NULL) return -1;
+        Node *p = head,*q=head;
+        while(q){
+            q=q->next;
+            if(q)p=p->next;
+            if(q)q=q->next;
+        }
+        return p->data;
+        
     }
 };
 

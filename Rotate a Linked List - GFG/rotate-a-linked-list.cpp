@@ -43,8 +43,16 @@ class Solution
     //Function to rotate a linked list.
     Node* rotate(Node* head, int k)
     {
+        if(head==NULL||head->next==NULL||k==0) return head;
         // Your code here
         Node*p=head,*r=head,*q=NULL;
+        int cnt =0;
+        while(p){
+            cnt++;
+            p=p->next;
+        }
+        p=head;
+        if(k>cnt)k=k%cnt;
         while(k-1){
             p=p->next;
             k--;

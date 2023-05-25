@@ -50,9 +50,15 @@ class Solution
             k--;
         }
         q=p->next;
+        // Reverse the first part start from head to before q(p)
+        //r(head)->p becomes head1->r
         Node*head1=rev(head,q);
+        // Reverse the second part start from q to before NULL
+        //q->last element becomes head2->q
         Node*head2=rev(q,NULL);
+        //connect 2 parts
         r->next=head2;
+        // reverse again => head1->q becomes head(q)->head1
         head = rev(head1,NULL);
         return head;
         

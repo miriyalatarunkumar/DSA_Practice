@@ -9,6 +9,8 @@
 class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        
+        /*
         vector <ListNode *> s1,s2;
         ListNode* ans=NULL;
         while(headA){
@@ -25,5 +27,25 @@ public:
             s2.pop_back();
         }
         return ans;
+        
+        */
+        
+                stack <ListNode *> s1,s2;
+        ListNode* ans=NULL;
+        while(headA){
+            s1.push(headA);
+            headA=headA->next;
+        }
+        while(headB){
+            s2.push(headB);
+            headB=headB->next;
+        }
+        while(!s1.empty() && !s2.empty() && s1.top()==s2.top()){
+            ans= s1.top();
+            s1.pop();
+            s2.pop();
+        }
+        return ans;
+        
     }
 };

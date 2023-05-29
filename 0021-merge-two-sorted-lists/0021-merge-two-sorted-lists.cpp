@@ -18,13 +18,11 @@ public:
                 Newhead=list1;
                 tail = Newhead;
                 list1=list1->next;
-                tail->next = list2;
             }
             else{
                 Newhead=list2;
                 tail = Newhead;
                 list2=list2->next;
-                tail->next = list2;
             }
         }
         else{

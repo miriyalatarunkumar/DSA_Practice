@@ -13,7 +13,7 @@ class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
         ListNode * ans = new ListNode();
-        ListNode* temp=ans;
+        ListNode* tail=ans;
         int num = l1->val+l2->val;
         l1=l1->next;
         l2=l2->next;
@@ -25,8 +25,8 @@ public:
             l1=l1->next;
             l2=l2->next;
             newNode->val = num%10;
-            temp->next = newNode;
-            temp=temp->next;
+            tail->next = newNode;
+            tail=tail->next;
             num = num/10;
         }
         while(l1){
@@ -34,8 +34,8 @@ public:
             num += l1->val;
             l1=l1->next;
             newNode->val = num%10;
-            temp->next = newNode;
-            temp=temp->next;
+            tail->next = newNode;
+            tail=tail->next;
             num = num/10;
         }
         while(l2){
@@ -43,15 +43,15 @@ public:
             num += l2->val;
             l2=l2->next;
             newNode->val = num%10;
-            temp->next = newNode;
-            temp=temp->next;
+            tail->next = newNode;
+            tail=tail->next;
             num = num/10;
         }
         while(num){
             ListNode * newNode = new ListNode();
             newNode->val = num%10;
-            temp->next = newNode;
-            temp=temp->next;
+            tail->next = newNode;
+            tail=tail->next;
             num = num/10;
         }
         return ans;

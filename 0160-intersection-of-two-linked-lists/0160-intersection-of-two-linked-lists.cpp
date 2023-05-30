@@ -50,6 +50,7 @@ public:
         return ans;
         
         */
+
         
         int s1 =0;
         int s2 = 0;
@@ -83,8 +84,9 @@ public:
             l1=l1->next;
             l2=l2->next;
         }
-        if(l1 && l2) return l1; // or l2 as they are equal
-        else return NULL;
+        return l1; // or l2 as they are equal
+        
+        
         
         
     }

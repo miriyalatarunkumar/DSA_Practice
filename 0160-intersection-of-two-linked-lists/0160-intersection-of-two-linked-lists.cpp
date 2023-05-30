@@ -30,7 +30,9 @@ public:
         
         */
         
-                stack <ListNode *> s1,s2;
+        /*
+        
+        stack <ListNode *> s1,s2;
         ListNode* ans=NULL;
         while(headA){
             s1.push(headA);
@@ -46,6 +48,44 @@ public:
             s2.pop();
         }
         return ans;
+        
+        */
+        
+        int s1 =0;
+        int s2 = 0;
+        ListNode * l1 = headA;
+        ListNode * l2 = headB;
+        while (l1){
+            s1++;
+            l1=l1->next;
+        }
+        while (l2){
+            s2++;
+            l2=l2->next;
+        }
+        l1 = headA;
+        l2 = headB;
+        int diff = abs(s1-s2);
+        if(s1<s2){
+            while(diff) {
+                l2=l2->next;
+                diff--;
+            }
+        }
+        else{
+            while(diff){
+                l1=l1->next;
+                diff--;
+            } 
+        }
+        // Now they are at same level
+        while(l1 && l2 && l1!=l2){
+            l1=l1->next;
+            l2=l2->next;
+        }
+        if(l1 && l2) return l1; // or l2 as they are equal
+        else return NULL;
+        
         
     }
 };

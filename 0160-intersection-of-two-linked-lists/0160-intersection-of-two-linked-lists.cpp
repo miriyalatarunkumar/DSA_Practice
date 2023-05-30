@@ -89,6 +89,8 @@ public:
         
         */
         
+        /*
+        //Using Hashing
         unordered_set<ListNode*> st;
         while(headA != NULL) {
            st.insert(headA);
@@ -99,6 +101,18 @@ public:
             headB = headB->next;
         }
         return NULL;
+        
+        */
+        
+        ListNode* a = headA;
+        ListNode* b = headB;
+
+        while(a != b) {
+            a = a == NULL? headB:a->next;
+            b = b == NULL? headA:b->next;
+        }
+
+        return a;
         
     }
 };

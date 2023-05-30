@@ -51,6 +51,7 @@ public:
         
         */
 
+        /*
         
         int s1 =0;
         int s2 = 0;
@@ -86,8 +87,18 @@ public:
         }
         return l1; // or l2 as they are equal
         
+        */
         
-        
+        unordered_set<ListNode*> st;
+        while(headA != NULL) {
+           st.insert(headA);
+           headA = headA->next;
+        }
+        while(headB != NULL) {
+            if(st.find(headB) != st.end()) return headB;
+            headB = headB->next;
+        }
+        return NULL;
         
     }
 };

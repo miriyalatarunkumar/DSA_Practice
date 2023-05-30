@@ -17,7 +17,7 @@ public:
             fast = fast->next;
             if(fast) fast = fast->next;
         }while(fast && fast!=slow);
-        if(fast && fast == slow) return 1;
+        if(fast && fast == slow) return 1;// when there is only 1 element, fast=slow=NULL, so, also check for fast!=NULL condition
         else return 0;
     }
 };

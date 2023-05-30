@@ -10,6 +10,8 @@ class Solution {
 public:
     bool hasCycle(ListNode *head) {
         
+        /*
+        
         unordered_set<ListNode*> hashTable;
         while(head != NULL) {
             if(hashTable.find(head) != hashTable.end()) return true;
@@ -17,6 +19,8 @@ public:
             head = head->next;
         }
         return false;
+        
+        */
         
         /*
         
@@ -33,5 +37,15 @@ public:
         
         */
         
+        if(head == NULL) return false;
+        ListNode* fast = head;
+        ListNode* slow = head;
+
+        while(fast->next != NULL && fast->next->next != NULL) {
+            fast = fast->next->next;
+            slow = slow->next;
+            if(fast == slow) return true;
+        }
+        return false;
     }
 };

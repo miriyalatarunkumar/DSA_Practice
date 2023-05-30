@@ -10,6 +10,9 @@ private:
     }
 public:
     bool isHappy(int n) {
+        
+        /*
+        
         if(n == 1) return 1;
         unordered_set<int> s;
         s.insert(n);
@@ -20,5 +23,16 @@ public:
         }
         if(num==1 ) return 1;
         return 0;
+        
+        */
+        
+        int slowPointer = n;
+        int fastPointer = newnum(n);
+        while(fastPointer != 1 && fastPointer != slowPointer)
+        {
+            slowPointer = newnum(slowPointer);
+            fastPointer = newnum(newnum(fastPointer));
+        }
+        return fastPointer==1;
     }
 };

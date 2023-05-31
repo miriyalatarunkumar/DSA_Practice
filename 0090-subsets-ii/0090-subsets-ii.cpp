@@ -27,7 +27,7 @@ public:
         vector<vector<int>> ans;
         vector<int> v;
         sort(nums.begin(),nums.end());
-        // fun(0,nums,ans,v);
+        //fun(0,nums,ans,v);
         fun_opti(0,nums,ans,v);
         sort(ans.begin(),ans.end()); // not asked for it, but can be done
         return ans;

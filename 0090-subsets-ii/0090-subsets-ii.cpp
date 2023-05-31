@@ -15,8 +15,8 @@ class Solution {
 public:
     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
         vector<vector<int>> ans;
-        sort(nums.begin(),nums.end());
         vector<int> v;
+        sort(nums.begin(),nums.end());
         fun(0,nums,ans,v);
         return ans;
     }

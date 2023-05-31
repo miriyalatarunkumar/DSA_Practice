@@ -15,10 +15,10 @@ class Solution {
     void fun_opti(int i,vector<int> nums,vector<vector<int>>& ans,vector<int>& v){
         if(i<nums.size()){
             v.push_back(nums[i]);
-            fun(i+1,nums,ans,v);
+            fun_opti(i+1,nums,ans,v);
             v.pop_back();
             while( i+1 < nums.size() && nums[i] == nums[i+1]) i++;
-            fun(i+1,nums,ans,v);
+            fun_opti(i+1,nums,ans,v);
         }
         else ans.push_back(v);
     }

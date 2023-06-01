@@ -19,9 +19,7 @@ public:
     vector<vector<int>> permuteUnique(vector<int>& arr) {
         int n = arr.size();
         vector<vector<int>> ans;
-        //sort(arr.begin(), arr.end());
         fun(0, arr, n, ans);
-        //sort(ans.begin(), ans.end());
         return ans;
     }
 };

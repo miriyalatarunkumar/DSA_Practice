@@ -41,7 +41,7 @@ class Solution
     {
         //Your code here
         int diff = abs(root-> data - K); 
-        while((root->left || root -> right) && diff >=0){
+        while(root->left || root -> right){
             if(K<root->data){
                 if(root->left) root = root-> left;
                 else break;

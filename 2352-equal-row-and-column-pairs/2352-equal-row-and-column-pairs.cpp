@@ -2,13 +2,13 @@ class Solution {
 public:
     int equalPairs(vector<vector<int>>& grid) {
         int n = grid.size();
-        int ans = 0,k,r;
+        int ans = 0,k=0;
         for(int i =0; i<n; i++){
             for(int j = 0; j<n; j++){
-                for(k =0, r = 0; k<n && r<n; k++, r++){
-                    if(grid[i][k] != grid[r][j]) break;
+                for(k =0; k<n; k++){
+                    if(grid[i][k] != grid[k][j]) break;
                 }
-                if(k==n && r == n) ans++;
+                if(k==n) ans++;
             }
         }
         return ans;

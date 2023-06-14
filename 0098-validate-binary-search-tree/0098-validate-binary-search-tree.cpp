@@ -11,6 +11,15 @@
  */
 class Solution {
 private:
+    bool fun(TreeNode* root, long min, long max){
+        if(!root) return true;
+        bool l = true, r = true;
+        if(root->val >= max || root->val <= min) return false;
+        l = fun(root->left, min, root->val);
+        r = fun(root->right, root->val, max);
+        return l&&r;
+    }
+    
     bool inorder(TreeNode* root, TreeNode* &prev){
         if(!root) return true;
         bool l = true, r = true;
@@ -24,7 +33,11 @@ private:
     }
 public:
     bool isValidBST(TreeNode* root) {
+        /*
         TreeNode* prev = NULL;
         return inorder(root, prev);
+        */
+        
+        return fun(root, LONG_MIN, LONG_MAX);
     }
 };

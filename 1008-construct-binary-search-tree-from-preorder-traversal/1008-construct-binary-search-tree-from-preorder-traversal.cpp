@@ -11,6 +11,14 @@
  */
 class Solution {
 private:
+    TreeNode* build(vector<int> &preorder, int &i, int bound){ // Here bound is upperbound and i should only be passed by reference as it it a global pointer to the preorder array.
+        if(i==preorder.size() || preorder[i] > bound) return NULL ;
+        TreeNode* newnode = new TreeNode(preorder[i++]);
+        newnode->left = build(preorder,i,newnode->val);
+        newnode->right = build(preorder,i,bound);
+        return newnode ; 
+    }
+    
     TreeNode* solve(vector<int> &preorder , long mini , long maxi , int &i){
         if(i>=preorder.size()) return NULL ;
         if(preorder[i] < mini || preorder[i] > maxi ) return NULL ;
@@ -81,9 +89,13 @@ public:
         return root;
         */
         
+        /*
         int i=0;
         long mini = LONG_MIN; // if -ve no.s there, use -LONG_MAX;
         long maxi  = LONG_MAX; // can also use int instead of long
-        return solve(preorder,mini,maxi,i);        
+        return solve(preorder,mini,maxi,i);
+        */
+        int i = 0;
+        return build(preorder,i,INT_MAX);
     }
 };

@@ -11,6 +11,16 @@
  */
 class Solution {
 private:
+    void dfs(TreeNode* node, int &low, int &high, int &ans){
+        if (node != NULL) {
+            if (low <= node->val && node->val <= high)
+                ans += node->val;
+            if (low < node->val)
+                dfs(node->left, low, high, ans);
+            if (node->val < high)
+                dfs(node->right, low, high, ans);
+        }
+    }
     void inorder(TreeNode* node, int &low, int &high, int &ans){
         if(node==NULL) return;
         inorder(node->left,low,high,ans);
@@ -21,7 +31,8 @@ private:
 public:
     int rangeSumBST(TreeNode* root, int low, int high) {
         int ans = 0;
-        inorder(root, low, high, ans);
+        //inorder(root, low, high, ans);
+        dfs(root,low,high,ans);
         return ans;
         
     }

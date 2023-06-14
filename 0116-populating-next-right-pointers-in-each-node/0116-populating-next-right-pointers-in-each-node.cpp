@@ -24,8 +24,9 @@ public:
         q.push(root);
         while(!q.empty()){
             queue<Node*> q1;
+            Node* p;
             while(!q.empty()){
-                Node* p = q.front();
+                p = q.front();
                 q.pop();
                 if(p->left)q1.push(p->left);
                 if(p->right)q1.push(p->right);

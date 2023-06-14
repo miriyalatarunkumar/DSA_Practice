@@ -11,13 +11,31 @@
  */
 class Solution {
 private:
+    int minDifference = INT_MAX;
+    // Initially, it will be null.
+    TreeNode* prevNode;  
+    void inorderTraversal(TreeNode* node) {
+        if (node == NULL) return;
+        
+        inorderTraversal(node->left);
+        // Find the difference with the previous value if it is there.
+        if (prevNode != NULL) {
+            minDifference = min(minDifference, node->val - prevNode->val);
+        }
+        prevNode = node;
+        inorderTraversal(node->right);
+    }
+    
+    /*
     void inorder(TreeNode* node, vector<int> &v){
         if (node == NULL) return;
         inorder(node->left,v);
         v.push_back(node->val);
         inorder(node->right,v);
     }
+    */
     
+    /*
     TreeNode* ip(TreeNode* root){
         TreeNode *p=root;
         if(p->left){
@@ -38,6 +56,8 @@ private:
         }
         return s;
     }
+    */
+    
 public:
     int getMinimumDifference(TreeNode* root) {
         
@@ -56,7 +76,7 @@ public:
         diff = min(diff, ld);
         return diff;
         */
-        
+        /*
         vector<int> v;
         inorder(root, v);
         int diff = INT_MAX;
@@ -64,5 +84,9 @@ public:
             diff = min(diff, v[i] - v[i-1]);
         }
         return diff;
+        */
+        
+        inorderTraversal(root);
+        return minDifference;
     }
 };

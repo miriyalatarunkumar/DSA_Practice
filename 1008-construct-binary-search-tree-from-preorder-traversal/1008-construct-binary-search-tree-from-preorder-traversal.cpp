@@ -11,6 +11,15 @@
  */
 class Solution {
 private:
+    TreeNode* solve(vector<int> &preorder , long mini , long maxi , int &i){
+        if(i>=preorder.size()) return NULL ;
+        if(preorder[i] < mini || preorder[i] > maxi ) return NULL ;
+        TreeNode* newnode = new TreeNode(preorder[i++]);
+        newnode->left = solve(preorder,mini,newnode->val,i);
+        newnode->right = solve(preorder,newnode->val,maxi,i);
+        return newnode ; 
+    }
+    
     void insert(TreeNode* &root, int num){
         TreeNode *q, *p=root;
         while(p){
@@ -40,6 +49,7 @@ public:
         return root;
         */
         
+        /*
         stack<TreeNode*> s;
         TreeNode* root = new TreeNode(preorder[0]);
         if(preorder.size()==1) return root;
@@ -69,5 +79,11 @@ public:
             }
         }
         return root;
+        */
+        
+        int i=0;
+        long mini = LONG_MIN; // if -ve no.s there, use -LONG_MAX;
+        long maxi  = LONG_MAX; // can also use int instead of long
+        return solve(preorder,mini,maxi,i);        
     }
 };

@@ -19,7 +19,7 @@ public:
 class Solution {
 public:
     Node* connect(Node* root) {
-        /*
+        
         if(root == NULL || (root->right == NULL && root -> left == NULL)) return root;
         queue<Node*>q;
         q.push(root);
@@ -36,7 +36,8 @@ public:
             q=q1;
         }
         return root;
-        */
+        
+        /*
         if(!root) return nullptr;
         queue<Node*> q;
         q.push(root);        
@@ -52,5 +53,6 @@ public:
             }
         }
         return root;
+        */
     }
 };

@@ -35,6 +35,8 @@ public:
         for(int i =1; i<preorder.size(); i++){
             insert(root, preorder[i]);
         }
+        // At worstcase, insertion takes O(N) time (in case of skewed tree)
+        // and we are inserting N elements => T.C.: O(N^2), S.C.: O(N)
         return root;
         */
         

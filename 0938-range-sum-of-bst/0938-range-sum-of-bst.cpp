@@ -15,7 +15,7 @@ private:
         if(node==NULL) return;
         inorder(node->left,low,high,ans);
         if(node->val >= low && node->val <= high) ans+=node->val;
-        if(node->val >= high) return;
+        //if(node->val >= high) return;
         inorder(node->right,low,high,ans);
     }
 public:

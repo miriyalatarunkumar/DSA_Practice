@@ -20,6 +20,7 @@ class Solution {
 public:
     Node* connect(Node* root) {
         /*
+        // My approach
         if(root == NULL || (root->right == NULL && root -> left == NULL)) return root;
         queue<Node*>q;
         q.push(root);
@@ -38,7 +39,12 @@ public:
         return root;
         */
         
+        //other approaches
+        //https://leetcode.com/problems/populating-next-right-pointers-in-each-node/discuss/1654181/C%2B%2BPythonJava-Simple-Solution-w-Images-and-Explanation-or-BFS-%2B-DFS-%2B-O(1)-Optimized-BFS
+        
         /*
+        // (BFS - Right to Left) approach
+        
         if(!root) return nullptr;
         queue<Node*> q;
         q.push(root);        
@@ -60,6 +66,7 @@ public:
         
         */
         
+        /*
         //Here we are taking the advantage of perfect binary tree (PBT)
         // and performing DFS
         // As it is PBT, if once child exists, the other exists as well.
@@ -77,5 +84,28 @@ public:
         //Time Complexity : O(N), each node is only traversed once
         //Space Complexity : O(logN), required for recursive stack. The maximum depth of recursion is equal to the height of tree which in this case of perfect binary tree is equal to O(logN)
         
+        */
+        
+        // (BFS - Space-Optimized Appraoch)
+        // Usually standard DFS/BFS takes O(N) space, but since we are given the next pointers in each node, we can use them to space-optimize our traversal to O(1).
+        // This is a combination of logic of above logics- we will traverse in BFS manner but populate the next pointers of bottom level just as we did in the DFS solution.
+
+        auto head = root;
+        for(; root; root = root -> left){
+            for(auto cur = root; cur; cur = cur -> next){ 
+                // traverse each level - it's just BFS taking advantage of next pointers          
+                if(cur -> left) {          // update next pointers of children if they exist 
+                    cur -> left -> next = cur -> right;
+                    if(cur -> next) cur -> right -> next = cur -> next -> left;
+                }
+                //else break;                // if no children exist, stop iteration
+                // This break statement is optional
+                // This condition is already covered in loop
+            }
+        }                                 
+        return head;
+        
+        //Time Complexity : O(N), we only traverse each node once, basically doing a standard BFS.
+        //Space Complexity : O(1), only constant extra space is being used
     }
 };

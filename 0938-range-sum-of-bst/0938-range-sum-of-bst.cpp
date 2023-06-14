@@ -32,7 +32,21 @@ public:
     int rangeSumBST(TreeNode* root, int low, int high) {
         int ans = 0;
         //inorder(root, low, high, ans);
-        dfs(root,low,high,ans);
+        //dfs(root,low,high,ans);
+        stack<TreeNode*>s;
+        s.push(root);
+        while(!s.empty()){
+            TreeNode* node = s.top();
+            s.pop();
+            if (node != NULL) {
+                if (low <= node->val && node->val <= high)
+                    ans += node->val;
+                if (low < node->val)
+                    s.push(node->left);
+                if (node->val < high)
+                    s.push(node->right);
+            }
+        }
         return ans;
         
     }

@@ -11,6 +11,13 @@
  */
 class Solution {
 private:
+    void inorder(TreeNode* node, vector<int> &v){
+        if (node == NULL) return;
+        inorder(node->left,v);
+        v.push_back(node->val);
+        inorder(node->right,v);
+    }
+    
     TreeNode* ip(TreeNode* root){
         TreeNode *p=root;
         if(p->left){
@@ -33,6 +40,8 @@ private:
     }
 public:
     int getMinimumDifference(TreeNode* root) {
+        
+        /*
         int diff = INT_MAX, rd = INT_MAX, ld = INT_MAX;
         int pd = abs(root->val - ip(root)->val);
         if(pd>0) diff = min(diff,pd);
@@ -45,6 +54,15 @@ public:
         if(ld == 1) return ld;
         diff = min(diff,rd);
         diff = min(diff, ld);
+        return diff;
+        */
+        
+        vector<int> v;
+        inorder(root, v);
+        int diff = INT_MAX;
+        for (int i = 1; i < v.size(); i++) {
+            diff = min(diff, v[i] - v[i-1]);
+        }
         return diff;
     }
 };

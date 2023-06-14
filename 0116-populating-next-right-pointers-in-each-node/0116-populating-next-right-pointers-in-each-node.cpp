@@ -54,11 +54,16 @@ public:
             }
         }
         return root;
+        
+        //Time Complexity : O(N), where N is the number of nodes in the given tree. We only traverse the tree once using BFS which requires O(N).
+        //Space Complexity : O(W) = O(N), where W is the width of given tree. This is required to store the nodes in queue. Since the given tree is a perfect binary tree, its width is given as W = (N+1)/2 ≈ O(N)
+        
         */
         
         //Here we are taking the advantage of perfect binary tree (PBT)
         // and performing DFS
         // As it is PBT, if once child exists, the other exists as well.
+        
         if(!root) return nullptr;
         auto L = root -> left, R = root -> right, N = root -> next;
         if(L) {
@@ -68,5 +73,9 @@ public:
             connect(R);                  // recurse right
         }
         return root;
+        
+        //Time Complexity : O(N), each node is only traversed once
+        //Space Complexity : O(logN), required for recursive stack. The maximum depth of recursion is equal to the height of tree which in this case of perfect binary tree is equal to O(logN)
+        
     }
 };

@@ -11,17 +11,17 @@
  */
 class Solution {
 private:
-    void dfs(TreeNode* root, unordered_map<int,int> &m){
+    void dfs1(TreeNode* root, unordered_map<int,int> &m){
         if(!root) return;
         m[root->val]++;
-        dfs(root->left, m);
-        dfs(root->right, m);
+        dfs1(root->left, m);
+        dfs1(root->right, m);
     }
     
 public:
     vector<int> findMode(TreeNode* root) {
         unordered_map<int,int> m;
-        dfs(root, m);
+        dfs1(root, m);
         vector<int> ans;
         int frequency = 0;
         for(auto it : m){

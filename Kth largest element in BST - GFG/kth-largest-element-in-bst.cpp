@@ -130,9 +130,12 @@ class Solution
         int kthLargest(Node *root, int k)
         {
             //Your code here
+            /*
             int ans = 0,flag=0;
             inorder(root,ans,k,flag);
             return ans;
+            */
+            return kthlargest(root,k)->data;
         }
 };
 

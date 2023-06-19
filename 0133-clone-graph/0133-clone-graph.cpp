@@ -38,6 +38,7 @@ public:
     }
     
     // unordered_map<int,Node*>m;
+    unordered_map<Node* , Node*> mp;
     Node* cloneGraph(Node* node) {
         /*
         if(!node)return node;
@@ -54,6 +55,7 @@ public:
         }
         return root;
         */
+        /*
         unordered_map<Node*,Node*> mp;
         if(node==NULL)
             return NULL;
@@ -63,5 +65,26 @@ public:
             return clone; 
         }
         return dfs(node,mp);
+        */
+        if(node == NULL) // if node is null, then simply return null
+        {
+            return NULL;
+        }
+        
+        // for a node, we will check whether we already creates a copy of thiis or not. If it is present in map that means we already creates a copy of this.
+        //But if not present in map, that means we have not a copy of this.
+        // Also, if we create a copy, then being a good neighbor, we find whether our neighbor have a copy or not, so we will travel all around our adjcant.
+        
+        if(mp.find(node) == mp.end()) // if not present in map
+        {
+            mp[node] = new Node(node -> val, {}); // make a copy
+            
+            for(auto adj: node -> neighbors) // travel in adjcant
+            {
+                mp[node] -> neighbors.push_back(cloneGraph(adj)); //add copy
+            }
+        }
+        
+        return mp[node]; // and at last, return mp[node] as till now we clone our whole graph
     }
 };

@@ -20,7 +20,7 @@ class Solution {
     vector<int> dfsOfGraph(int V, vector<int> adj[]) {
         // Code here
         vector<int> ans;
-        unordered_set<int> s;
+        unordered_set<int> s; // instead of set, we can also use  hashtable(vector) named visited with size V and all initialised with 0.
         fun(0,adj, ans, s);
         return ans;
     }

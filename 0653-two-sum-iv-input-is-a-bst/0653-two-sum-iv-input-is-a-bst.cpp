@@ -32,7 +32,7 @@ private:
     }
 public:
     bool findTarget(TreeNode* root, int k) {
-        
+        /*
         // T.C.: O(n)+O(n) => O(n)
         // S.C.: O(n) for vector
         vector<int> v;
@@ -45,16 +45,14 @@ public:
             else i++;
         }
         return false;
+        */
         
-        /*
         // T.C.: O(n)
         // S.C.: O(n) in worst case
         unordered_set<int> s;
         bool ans = false;
         solve(root, k, s, ans);
         return ans;
-        */
-        
         
     }
 };

@@ -50,7 +50,7 @@ class Solution {
         return ans;
         */
         // inserting in queue and making it 1 in hash table if it is 0 initially.
-        vector<int> vis(V,0); 
+        vector<int> vis(V,0); // Name of the hashtable is vis (visited)
         queue<int> q;
         // push the initial starting node 
         q.push(0);

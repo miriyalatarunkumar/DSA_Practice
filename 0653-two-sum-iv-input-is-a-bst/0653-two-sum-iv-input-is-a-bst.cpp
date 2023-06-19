@@ -11,6 +11,14 @@
  */
 class Solution {
 private:
+    
+    void inorder(TreeNode* root, vector<int> &v){
+        if(!root) return;
+        inorder(root->left,v);
+        v.push_back(root->val);
+        inorder(root->right,v);
+    }
+    
     void solve(TreeNode* root, int k, unordered_set<int> &s, bool &ans){
         if(ans)return;
         if(!root) return;
@@ -24,9 +32,29 @@ private:
     }
 public:
     bool findTarget(TreeNode* root, int k) {
+        
+        // T.C.: O(n)+O(n) => O(n)
+        // S.C.: O(n) for vector
+        vector<int> v;
+        inorder(root, v);
+        int i = 0;
+        int j = v.size()-1;
+        while(i<j){
+            if(v[i]+v[j]==k) return true;
+            else if(v[i]+v[j]>k)j--;
+            else i++;
+        }
+        return false;
+        
+        /*
+        // T.C.: O(n)
+        // S.C.: O(n) in worst case
         unordered_set<int> s;
         bool ans = false;
         solve(root, k, s, ans);
         return ans;
+        */
+        
+        
     }
 };

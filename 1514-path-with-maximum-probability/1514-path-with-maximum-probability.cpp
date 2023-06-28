@@ -1,46 +1,39 @@
 class Solution {
-private:
-    void dfs(unordered_map<int, vector<pair<int, double>>>& m, double& ans, int start, int end) {
-        priority_queue<pair<double, int>> pq;
-        pq.push({ 1.0, start });
+public:
+    double maxProbability(int n, vector<vector<int>>& edges, vector<double>& succProb, int start, int end) {
 
-        unordered_map<int, double> maxProb;
-        maxProb[start] = 1.0;
+        // Adjacency list
+        vector<vector<pair<int, double>>> adj(n);
+        for (int i = 0; i < edges.size(); i++) {
+            int u = edges[i][0];
+            int v = edges[i][1];
+            adj[u].push_back({v, succProb[i]});
+            adj[v].push_back({u, succProb[i]});
+        }
 
-        while (!pq.empty()) {
-            double prob = pq.top().first;
-            int node = pq.top().second;
-            pq.pop();
-
-            if (node == end) {
-                ans = max(ans, prob);
-                continue;
-            }
-
-            for (auto& neighbor : m[node]) {
-                int nextNode = neighbor.first;
-                double edgeProb = neighbor.second;
-                double nextProb = prob * edgeProb;
-
-                if (nextProb > maxProb[nextNode]) {
-                    maxProb[nextNode] = nextProb;
-                    pq.push({ nextProb, nextNode });
+        // ans will be in dist[end]
+        vector<double> dist(n, 0.0);
+        dist[start] = 1.0;
+        
+        queue<int> q;
+        q.push(start);
+        
+        while (!q.empty()) {
+            int curr = q.front();
+            q.pop();
+            
+            for (auto x : adj[curr]) {
+                int node = x.first;
+                double prob = x.second;
+                double newProb = dist[curr] * prob;
+                
+                if (newProb > dist[node]) {
+                    dist[node] = newProb;
+                    q.push(node);
                 }
             }
         }
-    }
-
-public:
-    double maxProbability(int n, vector<vector<int>>& edges, vector<double>& succProb, int start, int end) {
-        double ans = 0;
-        unordered_map<int, vector<pair<int, double>>> m;
-
-        for (int i = 0; i < edges.size(); i++) {
-            m[edges[i][0]].push_back({ edges[i][1], succProb[i] });
-            m[edges[i][1]].push_back({ edges[i][0], succProb[i] });
-        }
-
-        dfs(m, ans, start, end);
-        return ans;
+        
+        return dist[end];
     }
 };

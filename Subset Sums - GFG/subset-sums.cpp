@@ -6,23 +6,21 @@ using namespace std;
 class Solution
 {
 private:
-    int rsum(int i, vector<int> arr, int N, vector <int> &v,int sum){
-        if(i<N){
-            int n = arr[i];
-            rsum(i+1,arr,N,v,sum+n);
-            rsum(i+1,arr,N,v,sum);
+    void fun(vector<int> &arr, int n, vector<int> &ans, int i, int sum){
+        if(i==n){
+            ans.push_back(sum);
+            return;
         }
-        else v.push_back(sum);
+        fun(arr, n, ans, i+1, sum+arr[i]);
+        fun(arr, n, ans, i+1, sum);
     }
-
 public:
     vector<int> subsetSums(vector<int> arr, int N)
     {
         // Write Your Code here
-        vector<int> v;
-        rsum(0,arr, N, v,0);
-        sort(v.begin(),v.end());
-        return v;
+        vector<int> ans;
+        fun(arr, N, ans, 0, 0);
+        return ans;
     }
 };
 

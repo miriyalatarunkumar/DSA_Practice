@@ -18,35 +18,16 @@ struct Node {
 // } Driver Code Ends
 //Function to find the lowest common ancestor in a BST.
 class Solution{
-    private:
-        void fun(Node *a, int n, stack<Node*> &s){
-            while(a){
-                    s.push(a);
-                    if(a->data==n)break;
-                    if(a->data>n)a=a->left;
-                    else a=a->right;
-                }
-        }
     public:
         Node* LCA(Node *root, int n1, int n2)
         {
             // code here
-            stack<Node*> s1, s2;
-            fun(root, n1, s1);
-            fun(root, n2, s2);
-            while(s1.size()!=s2.size()){
-                if(s1.size()>s2.size()){
-                    s1.pop();
-                }else s2.pop();
+            while(root){
+                if(n1>root->data&&n2>root->data)root=root->right;
+                else if(n1<root->data&&n2<root->data)root=root->left;
+                else return root;
             }
-            while(!s1.empty()){
-                if(s1.top()==s2.top())return s1.top();
-                else{
-                    s1.pop();
-                    s2.pop();
-                }
-            }
-            return NULL;
+            return root;
         }
 
 };

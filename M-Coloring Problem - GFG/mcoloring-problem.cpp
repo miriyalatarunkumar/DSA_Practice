@@ -15,7 +15,7 @@ private:
     bool fun(bool graph[101][101], int m, int n, int node, vector<int> &colour){
         if(node==n)return true;
         for(int col =1; col<=m; col++){
-            if(issafe(graph, n, node, colour, col) && !colour[node]){
+            if(issafe(graph, n, node, colour, col)){
                 colour[node]=col;
                 if (fun(graph, m, n, node+1, colour)) return true;
                 else colour[node]=0;

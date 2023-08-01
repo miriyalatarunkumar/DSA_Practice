@@ -4,24 +4,26 @@ using namespace std;
 
 // } Driver Code Ends
 class Solution {
- private:
-    void fun(int n, vector<int> adj[], vector<int> &ans, unordered_set<int> &s){
-        ans.push_back(n);
-        s.insert(n);
-        auto node = adj[n];
-        for(auto it : node){
-            if(!s.count(it)){
-                fun(it, adj, ans, s);
+private:
+    void dfs(int V, vector<int> adj[], vector<int> &ans, vector<bool> &visited, int node){
+        if(node==V){
+            return;
+        }
+        ans.push_back(node);
+        visited[node]=1;
+        for(auto it : adj[node]){
+            if(!visited[it]){
+                dfs(V, adj, ans, visited, it);
             }
         }
     }
- public:
+public:
     // Function to return a list containing the DFS traversal of the graph.
     vector<int> dfsOfGraph(int V, vector<int> adj[]) {
         // Code here
         vector<int> ans;
-        unordered_set<int> s; // instead of set, we can also use  hashtable(vector) named visited with size V and all initialised with 0.
-        fun(0,adj, ans, s);
+        vector<bool> visited(V, 0);
+        dfs(V, adj, ans, visited, 0);
         return ans;
     }
 };

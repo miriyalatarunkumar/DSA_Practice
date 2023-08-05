@@ -9,7 +9,7 @@ class Solution{
         //code
         sort(a.begin(), a.end());
         long long ans = INT_MAX;
-        for(int i=0; i+m<=n; i++){
+        for(int i=0; i+m-1<n; i++){
             ans = min(ans, a[i+m-1]-a[i]);
         }
         return ans;

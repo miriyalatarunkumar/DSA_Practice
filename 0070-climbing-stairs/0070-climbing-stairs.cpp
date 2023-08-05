@@ -10,7 +10,9 @@ private:
     }
 public:
     int climbStairs(int n) {
-        vector<int> dp(n+1, -1);
+        //vector<int> dp(n+1, -1);
+        //return fun(n, n, dp);
+        /*
         dp[0]=1;
         for(int i = 1; i<=n; i++){
             int first = dp[i-1];
@@ -19,5 +21,14 @@ public:
             dp[i]=first+second;
         }
         return dp[n];
+        */
+        int firstprev = 1;
+        int secondprev=0;
+        for(int i=1; i<=n; i++){
+            int curr = firstprev+secondprev;
+            secondprev = firstprev;
+            firstprev = curr;
+        }
+        return firstprev;
     }
 };

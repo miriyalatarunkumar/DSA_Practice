@@ -10,78 +10,104 @@ using namespace std;
 
 
 // } Driver Code Ends
-class Solution 
+class Solution
 {
-    private:
-    // Using array to keep track of possible numbers for each row, col, and block
-    bool row[9][10], col[9][10], block[3][3][10];
-    
     public:
-    bool SolveSudoku(int grid[N][N])  
-    { 
-        // Initializing the row, col, and block arrays
-        memset(row, false, sizeof(row));
-        memset(col, false, sizeof(col));
-        memset(block, false, sizeof(block));
-    
-        for (int i=0; i<9; i++) {
-            for (int j=0; j<9; j++) {
-                int num = grid[i][j];
-                if (num != 0) {
-                    row[i][num] = col[j][num] = block[i/3][j/3][num] = true;
-                }
-            }
-        }
-        return solve(grid, 0, 0);
-    }
-    
-    bool solve(int grid[N][N], int i, int j){
-        // Base case - reached the end of grid
-        if (i == 9) {
-            return true;
-        }
-        
-        // If reached the end of the row, move to the next row
-        if (j == 9) {
-            return solve(grid, i + 1, 0);
-        }
-        
-        // If cell is not empty, move to the next cell
-        if (grid[i][j] != 0) {
-            return solve(grid, i, j + 1);
-        }
-    
-        // Try numbers from 1 to 9 in the empty cell
-        for (int num = 1; num <= 9; num++) {
-            // Check whether it is safe to put the number in the cell or not
-            if (!row[i][num] && !col[j][num] && !block[i/3][j/3][num]) {
-                grid[i][j] = num;
-                row[i][num] = col[j][num] = block[i/3][j/3][num] = true;
-    
-                // If we can solve the Sudoku by putting num in the current cell
-                if (solve(grid, i, j + 1)) {
-                    return true;
-                }
-    
-                // If we can't proceed with this solution
-                // remove the number from the current cell
-                grid[i][j] = 0;
-                row[i][num] = col[j][num] = block[i/3][j/3][num] = false;
-            }
-        }
-        return false;
-    }
+    //This function searches the grid to find an entry that is still unassigned.
+    //If found, the reference parameters row, col will be set the location  
+    //that is unassigned, and true is returned.  
+    //If no unassigned entries remain, false is returned. 
+    bool FindUnassignedLocation(int grid[N][N],int &row, int &col)  
+    {  
+        for (row = 0; row < N; row++)  
+            for (col = 0; col < N; col++)  
+                if (grid[row][col] == UNASSIGNED)  
+                    return true;  
+        return false;  
+    }  
     
     //Function to print grids of the Sudoku.
-    void printGrid(int grid[N][N]) 
-    {
-        // Your code here 
-        for(int i=0; i<9; i++){
-            for(int j=0; j<9; j++){
-                cout<<grid[i][j]<<" ";
-            }
-        }
+    void printGrid(int grid[N][N])  
+    {  
+        for (int row = 0; row < N; row++)  
+            for (int col = 0; col < N; col++)  
+                cout << grid[row][col] << " ";  
+    } 
+    
+    //Function to return a boolean which indicates whether an assigned  
+    //entry in the specified row matches the given number. 
+    bool UsedInRow(int grid[N][N], int row, int num)  
+    {  
+        for (int col = 0; col < N; col++)  
+            if (grid[row][col] == num)  
+                return true;  
+        return false;  
+    }  
+      
+    //Function to return a boolean which indicates whether an assigned  
+    //entry in the specified column matches the given number. 
+    bool UsedInCol(int grid[N][N], int col, int num)  
+    {  
+        for (int row = 0; row < N; row++)  
+            if (grid[row][col] == num)  
+                return true;  
+        return false;  
+    }  
+      
+    //Function to return a boolean which indicates whether an assigned
+    //entry within the specified 3x3 box matches the given number.
+    bool UsedInBox(int grid[N][N], int boxStartRow,int boxStartCol, int num)  
+    {  
+        for (int row = 0; row < 3; row++)  
+            for (int col = 0; col < 3; col++)  
+                if (grid[row + boxStartRow] 
+                        [col + boxStartCol] == num)  
+                    return true;  
+        return false;  
     }
+      
+    
+    //Function to return a boolean which indicates whether it will be 
+    //legal to assign num to the given row, column location. 
+    bool isSafe(int grid[N][N], int row, int col, int num)  
+    {  
+        //checking if 'num' is not already placed in  
+        //current row, current column and current 3x3 box.
+        return !UsedInRow(grid, row, num) &&  
+               !UsedInCol(grid, col, num) &&  
+               !UsedInBox(grid, row - row % 3 ,  
+                          col - col % 3, num) &&  
+                grid[row][col] == UNASSIGNED;  
+    } 
+    
+    //Function to find a solved Sudoku. 
+    bool SolveSudoku(int grid[N][N])  
+    {  
+        int row, col;  
+      
+        //if there is no unassigned location, we are done.
+        if (!FindUnassignedLocation(grid, row, col))  
+        return true;
+      
+        //considering digits from 1 to 9  
+        for (int num = 1; num <= 9; num++)  
+        {   
+            if (isSafe(grid, row, col, num))  
+            {  
+                //making tentative assignment  
+                grid[row][col] = num;  
+      
+                //if success, return true  
+                if (SolveSudoku(grid))  
+                    return true;  
+      
+                //failure, unmake & try again  
+                grid[row][col] = UNASSIGNED;  
+            }  
+        }  
+        // this triggers backtracking 
+        return false;  
+    }  
 };
 
 //{ Driver Code Starts.

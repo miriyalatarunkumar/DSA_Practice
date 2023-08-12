@@ -10,10 +10,26 @@ private:
     }
 public:
     int uniquePathsWithObstacles(vector<vector<int>>& grid){
+        if(grid[0][0] == 1) return 0;
         int m = grid.size();
         int n = grid[0].size();
-        vector<vector<int>> dp(m, vector<int> (n, -1));
-        return fun(m, n, m-1, n-1, grid, dp);
-        
+        // vector<vector<int>> dp(m, vector<int> (n, -1));
+        // return fun(m, n, m-1, n-1, grid, dp);
+        vector<int> prev(n, 0), curr(n,0);
+        prev[0] = 1;
+        for(int i = 0; i<m; i++){
+            for(int j=0; j<n; j++){
+                if(grid[i][j] == 1){
+                    curr[j] = 0;
+                    continue;
+                }
+                int up = prev[j];
+                int left = 0;
+                if(j>0) left = curr[j-1];
+                curr[j] = up+left;
+            }
+            prev = curr;
+        }
+        return prev[n-1];
     }
 };

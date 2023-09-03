@@ -10,6 +10,7 @@
  * };
  */
 class Solution {
+    /*
     int dfs(TreeNode* root, int &ans){
         if(!root) return 0;
         int left =0, right =0;
@@ -17,6 +18,14 @@ class Solution {
         if(root->right) right = 1+dfs(root->right, ans);
         ans = max(ans, left+right);
         return max(left,right);
+    }
+    */
+    int dfs(TreeNode* root, int &ans){
+        if(!root) return 0;
+        int left = dfs(root->left, ans);
+        int right = dfs(root->right, ans);
+        ans = max(ans, left+right);
+        return 1+ max(left,right);
     }
 public:
     int diameterOfBinaryTree(TreeNode* root) {

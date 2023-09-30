@@ -13,6 +13,7 @@ class Solution
     void booleanMatrix(vector<vector<int> > &matrix)
     {
         // code here 
+        /*
         vector<vector<int>> temp = matrix;
         int r = matrix.size();
         int c = matrix[0].size();
@@ -32,6 +33,25 @@ class Solution
                         }
                         isonec[j]=1;
                     }
+                }
+            }
+        }
+        */
+        int r = matrix.size();
+        int c = matrix[0].size();
+        vector<bool>isoner(r,0), isonec(c,0);
+        for(int i=0; i<r; i++){
+            for(int j=0; j<c; j++){
+                if(matrix[i][j]){
+                    isoner[i]=1;
+                    isonec[j]=1;
+                }
+            }
+        }
+        for(int i=0; i<r; i++){
+            for(int j=0; j<c; j++){
+                if(isoner[i] || isonec[j]){
+                    matrix[i][j]=1;
                 }
             }
         }
